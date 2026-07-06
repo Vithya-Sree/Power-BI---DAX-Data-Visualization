@@ -2,17 +2,17 @@
 Project Overview
 An enterprise-grade Power BI business intelligence dashboard designed to transform decentralized e-commerce transaction data, geographic logistics logs, and organizational targets into an interactive analytical tool. This analytics solution implements an efficient star-schema data model and advanced DAX metrics to track financial performance, measure budget variance, map product portfolio health, and audit regional profitability.
 
-## 🎯 Business Objectives* 
-*Variance Tracking:* Audit actual sales performance against corporate goals across distinct product categories.* 
-*Profitability Mapping:* Isolate top-performing, high-margin items from sub-categories driving operational drag or loss.* 
-*Temporal Trend Diagnostics:* Smooth chronological noise to isolate macroeconomic seasonality and growth cycles.* 
-*Regional Insights:* Target localized profitability tracking within primary operational geographic hubs (e.g., Delhi territory).
+## 🎯 Business Objectives
+1. *Variance Tracking:* Audit actual sales performance against corporate goals across distinct product categories.
+2. *Profitability Mapping:* Isolate top-performing, high-margin items from sub-categories driving operational drag or loss.
+3. *Temporal Trend Diagnostics:* Smooth chronological noise to isolate macroeconomic seasonality and growth cycles.
+4. *Regional Insights:* Target localized profitability tracking within primary operational geographic hubs (e.g., Delhi territory).
 
-## 🛠️ Tech Stack & Key Features* 
-*BI Tool:* Microsoft Power BI Desktop* 
-*Data Modeling:* Power Query (ETL), Relational Schema Design, Filter Context Optimization* 
-*Analytical Calculations:* Data Analysis Expressions (DAX)* 
-*Visualizations:* Custom Summary Cards, Clustered Bar/Column Charts, Multi-Axis Scatter Plots, Interactive Dropdown Slicers
+## 🛠️ Tech Stack & Key Features
+1. *BI Tool:* Microsoft Power BI Desktop 
+2. *Data Modeling:* Power Query (ETL), Relational Schema Design, Filter Context Optimization
+3. *Analytical Calculations:* Data Analysis Expressions (DAX)
+4. *Visualizations:* Custom Summary Cards, Clustered Bar/Column Charts, Multi-Axis Scatter Plots, Interactive Dropdown Slicers
 
 ## 📐 Data Architecture & Schema
 The data architecture follows a structured star-schema relational model built on standard relational principles:
@@ -103,7 +103,7 @@ Four large number cards sit at the very top of the page to give managers a quick
 ## 🚀 Key Takeaways & Impact
 1. *Dynamic Drill-Down:* Integrated interactive *Year* and *Category* dropdown slicers, enabling leadership to audit precise performance windows instantly.
 2. *Margin Optimization:* Highlighted high-efficiency products to guide targeted inventory changes and maximize returns per dollar spent.
-3. 3. *Strategic Alignment:* Provided clear visual data showing where actual revenue lags behind targets, allowing leadership to re-evaluate underperforming pipelines.
+3. *Strategic Alignment:* Provided clear visual data showing where actual revenue lags behind targets, allowing leadership to re-evaluate underperforming pipelines.
       
 ## 📂 Project Structuretext
 ├── Data/
