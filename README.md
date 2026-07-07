@@ -1,115 +1,60 @@
-# Power-BI---DAX-Data-Visualization
-Project Overview
-An enterprise-grade Power BI business intelligence dashboard designed to transform decentralized e-commerce transaction data, geographic logistics logs, and organizational targets into an interactive analytical tool. This analytics solution implements an efficient star-schema data model and advanced DAX metrics to track financial performance, measure budget variance, map product portfolio health, and audit regional profitability.
+# 📊 Retail Sales Performance & Logistics Optimization Dashboard
 
-## 🎯 Business Objectives
-1. *Variance Tracking:* Audit actual sales performance against corporate goals across distinct product categories.
-2. *Profitability Mapping:* Isolate top-performing, high-margin items from sub-categories driving operational drag or loss.
-3. *Temporal Trend Diagnostics:* Smooth chronological noise to isolate macroeconomic seasonality and growth cycles.
-4. *Regional Insights:* Target localized profitability tracking within primary operational geographic hubs (e.g., Delhi territory).
+An end-to-end Power BI business intelligence solution to audit sales targets, isolate profit leaks, and optimize regional supply chains.
 
-## 🛠️ Tech Stack & Key Features
-1. *BI Tool:* Microsoft Power BI Desktop 
-2. *Data Modeling:* Power Query (ETL), Relational Schema Design, Filter Context Optimization
-3. *Analytical Calculations:* Data Analysis Expressions (DAX)
-4. *Visualizations:* Custom Summary Cards, Clustered Bar/Column Charts, Multi-Axis Scatter Plots, Interactive Dropdown Slicers
+## 🎯 Project Overview
+This project transforms raw transactional retail data into an interactive, four-page reporting suite. 
+It bridges the gap between raw backend metrics and executive decision-making.
 
-## 📐 Data Architecture & Schema
-The data architecture follows a structured star-schema relational model built on standard relational principles:
-1. *List of Orders (Dimension Table):* Captures temporal and logistical metadata (Order ID, Order Date, Customer Name, City, State).
-2. *Order Details (Fact Table):* Tracks raw transaction quantities (Amount, Profit, Quantity) and houses custom-engineered calculated metrics.
-3. *Sales_Target (Dimension Table):* Contains monthly sales targets distributed by high-level category benchmarks.
-4. *Calendar (DAX Generated Table):* A dedicated, continuous calendar dimension built to stabilize temporal reporting and run robust time-intelligence formulas.
-   
-### 🔗 Model Relationship Optimization
-* Built a controlled, *Many-to-Many (:\)* relationship between Sales_Target and Order Details on the Category key.
-* Configuration restricted to a *Single (Sales_Target filters Order Details)* cross-filter direction.
-* This custom context protects data integrity, ensuring target budgets filter actuals seamlessly without causing double-counting or data inflation.
+## ⚠️ Business Problem
+The enterprise lacked visibility into monthly target fulfillment, suffered from hidden profit drains due to high-volume/negative-margin products, and lacked data-driven insights to optimize physical shipping and logistics routes.
 
-<img width="970" height="478" alt="image" src="https://github.com/user-attachments/assets/059d5a37-c5fc-48f2-b22f-cdd2c5c23a58" />
+## 📊 Dashboard Architecture & Charts
+The reporting suite is divided into four dedicated dashboards:
 
-## 📝 Core DAX Formulas Applied#
-## Time Intelligence Foundationdax
-Calendar = 
-VAR MinDate = MIN('List of Orders'[Order Date])
-VAR MaxDate = MAX('List of Orders'[Order Date])
-RETURN
-ADDCOLUMNS (
-    CALENDAR(DATE(YEAR(MinDate), 1, 1), DATE(YEAR(MaxDate), 12, 31)),
-    "Year", YEAR([Date]),
-    "Month Name", FORMAT([Date], "MMMM"),
-    "Month Number", MONTH([Date]),
-    "Quarter", "Q" & FORMAT([Date], "Q"),
-    "Year Month", FORMAT([Date], "YYYY-MM")
-)
+### 1. Executive Summary
+<img width="976" height="546" alt="image" src="https://github.com/user-attachments/assets/572b9c36-fdda-45bb-b3ca-fcaed22aef5a" />
 
+* **KPI Cards:** Total Sales ($432K), Order Count (500), Total Target ($436K), and Average Profit.
+* **Line Chart:** Sum of Amount by Month tracking seasonal trends.
+* **Clustered Column Chart:** Sales Target Achievement by Category.
+* **Horizontal Bar Chart:** Maximum Profit Margin by Sub-Category.
 
-### Executive KPI Core Measuresdax
-Total Sales = SUM('Order Details'[Amount])
+### 2. Sales Target Matrix
+![Uploading image.png…]()
 
-Total Target = SUM('Sales_Target'[Target])
+* **Matrix View:** Monthly financial ledger cross-referencing sales vs. targets.
+* **Gauge Chart:** Total Target Progression vs. milestone boundary ($431.5K reached).
+* **Multi-Row Card:** Minimum operational baseline thresholds per segment.
 
-Order Count = DISTINCTCOUNT('List of Orders'[Order ID])
+### 3. Product Deep Dive
+![Uploading image.png…]()
 
-Average Profit in Delhi = 
-CALCULATE(
-    AVERAGE('Order Details'[Profit]),
-    'List of Orders'[City] = "Delhi"
-)
+* **Treemap:** Revenue market share distribution by sub-category.
+* **Scatter Chart:** Profit vs. Quantity matrix mapping high-volume financial drains.
+* **Donut Chart:** Peak profit margin efficiencies across product lines.
 
-Profit Margin = DIVIDE('Order Details'[Profit], 'Order Details'[Amount], 0)
+### 4. Logistics & Regional Hubs
+![Uploading image.png…]()
 
-## 📈 Visual Matrix & Analytical Insights* 
-## Executive Headline Cards (Summary KPI Block)
-Four large number cards sit at the very top of the page to give managers a quick, two-second health check of the business:
+* **Funnel Chart:** Transaction volume distribution ranked by State.
+* **Bubble Map:** Geolocation plot mapping Total Sales by City across India.
 
-   1. Total Sales ($431.5K): Shows the total amount of money the business brought in from all sales.
-   2. Total Target ($435.9K): Shows the total sales goal set by the company. Comparing this to Total Sales shows we are just slightly short of our global target.
-   3. Order Count (500): Shows the total number of customer orders processed by our team.
-   4. Avg Profit Delhi ($43): Shows the average profit made on an order coming from Delhi. It helps monitor our performance in this key city.
+## 📈 Key Business Insights
+* **Target Variance:** Achieved 99% of global goals, missing the $436K target by a narrow $4K.
+* **Segment Performance:** Electronics beat its target ($165.2K generated), while Clothing severely underperformed ($35K shortfall).
+* **Profit Outliers:** High-volume items like Tables and Chairs operate below the zero-profit line, causing direct cash drains.
+* **Supply Anchors:** Madhya Pradesh (101 orders) and Maharashtra (90 orders) stand out as the primary regional throughput hubs.
 
-<img width="560" height="97" alt="image" src="https://github.com/user-attachments/assets/aee7f877-5d4d-4cd1-b484-9379b8b9a6e2" />
+## 🚀 Strategic Recommendations
+* Adjust pricing, renegotiate vendor costs, or bundle negative-margin furniture items with high-margin accessories (e.g., Handkerchiefs).
+* Build localized fulfillment centers in Madhya Pradesh and Maharashtra to cut transit times and reduce last-mile shipping fees.
 
+## 🛠️ Tools Used & Skills Demonstrated
+* **Power BI Desktop:** Core platform for ETL, data modeling, and reporting.
+* **Data Modeling:** Built relational schemas connecting transactions, targets, and locations.
+* **DAX Formulas:** Developed calculated columns (`Category Type`, `Revenue per Order`, `Sales Category`) and dynamic measures (`Order Count`, `YTD Sales`, `Average Profit`).
 
-## Core Analytical Charts
+## 🏁 Conclusion
+This dashboard successfully unifies disparate retail data into actionable strategies. By tackling target blindness, highlighting negative-margin items, and mapping out logistics hubs, it equips management to plug profit leaks and scale operations efficiently.
 
-* Sales Target Achievement by Category (Column Chart):
-  This chart compares actual sales numbers directly against our goals for each main department.
-  It shows that Clothing and Electronics are doing great and meeting expectations, while Furniture is falling short of its sales goals.
-  <img width="769" height="435" alt="image" src="https://github.com/user-attachments/assets/52a52845-02f6-43a9-94db-48b2cca55523" />
-* Business Action: Managers should figure out why furniture isn't selling well or put more marketing money into the successful clothing and electronics departments.
-
-* Maximum Profit Margin by Sub-Category (Horizontal Bar Chart):
-  This chart ranks our specific products by their highest profit percentages rather than just total sales volume.
-  It helps us spot "hidden heroes" like Handkerchiefs that make a great return on investment, while highlighting items at the bottom that are losing money.
-  <img width="772" height="435" alt="image" src="https://github.com/user-attachments/assets/0114d3be-1022-438a-9782-12300a3adca5" />
-* Business Action: The team should promote high-profit products more and talk to vendors to lower costs for items at the bottom of the list.
-  
-* Monthly Sales Trend (Line Chart):
-  This chart tracks our sales month-by-month across the year.
-  By looking at months instead of individual days, the line smooths out and shows us exactly when sales peak and when they drop.
-  <img width="770" height="434" alt="image" src="https://github.com/user-attachments/assets/ff949215-a834-4895-95a0-85ead3c9c58c" />
-* Business Action: This helps the logistics team order more inventory and hire extra staff ahead of time for high-demand shopping months.
-  
-* Portfolio Diagnostics (Scatter Plot):
-  This chart places products on a grid based on two things: how many items we sell (X-axis) and how much profit they make (Y-axis).
-  It separates our "superstars" (high sales, high profit) from "warning items" (selling in high quantities but making very little or negative profit).
-  <img width="771" height="432" alt="image" src="https://github.com/user-attachments/assets/2b09a912-977d-48fe-a7c4-3cea2a0d8744" />
-* Business Action: This tells us exactly where we need to raise prices or stop selling items that require a lot of work but don't bring back money.
-
-<img width="783" height="450" alt="image" src="https://github.com/user-attachments/assets/373f2299-d0d8-45a4-922d-95ef67b26fc0" />
-
-
-## 🚀 Key Takeaways & Impact
-1. *Dynamic Drill-Down:* Integrated interactive *Year* and *Category* dropdown slicers, enabling leadership to audit precise performance windows instantly.
-2. *Margin Optimization:* Highlighted high-efficiency products to guide targeted inventory changes and maximize returns per dollar spent.
-3. *Strategic Alignment:* Provided clear visual data showing where actual revenue lags behind targets, allowing leadership to re-evaluate underperforming pipelines.
-      
-## 📂 Project Structuretext
-├── Data/
-│   ├── List of Orders.csv
-│   ├── Order Details.csv
-│   └── Sales_Target.csv
-├── Dashboard/
-│   └── Sales_Performance_Dashboard.pbix
-└── README.md
