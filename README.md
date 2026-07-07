@@ -9,40 +9,131 @@ It bridges the gap between raw backend metrics and executive decision-making.
 ## ⚠️ Business Problem
 The enterprise lacked visibility into monthly target fulfillment, suffered from hidden profit drains due to high-volume/negative-margin products, and lacked data-driven insights to optimize physical shipping and logistics routes.
 
-## Dataset Information
-The database architecture follows a robust star-schema relational model, optimizing processing efficiency and preventing metric distortion:
-•	List of Orders (Dimension Table): Captures geographic, logistical, and chronological identifiers (Order ID, Order Date, CustomerName, City, State).
-•	Order Details (Fact Table): Records transactional quantitative fields (Amount, Profit, Quantity) and houses engineered DAX components.
-•	Sales_Target (Dimension Table): Contains monthly target budgets broken down by organizational classifications (Category, Target).
+## 📁 Dataset Overview
 
-## Data Cleaning Process
-To secure exact data alignment, custom calculated dimensions and analytical metrics were developed using Data Analysis Expressions (DAX):
+The project uses a **star-schema relational data model** to ensure efficient querying, accurate reporting, and reliable KPI calculations.
 
--- Custom Calendar Table
+### 🗂️ Tables
 
-Calendar = 
+#### **1. List of Orders (Dimension Table)**
+Contains order-level information including customer, location, and date attributes.
+
+**Columns**
+- Order ID
+- Order Date
+- Customer Name
+- City
+- State
+
+---
+
+#### **2. Order Details (Fact Table)**
+Stores transactional data and numerical measures used for business analysis.
+
+**Columns**
+- Amount
+- Profit
+- Quantity
+
+This table serves as the primary fact table for calculating sales and performance metrics.
+
+---
+
+#### **3. Sales_Target (Dimension Table)**
+Stores monthly sales targets categorized by product category.
+
+**Columns**
+- Category
+- Target
+
+---
+
+# 🧹 Data Preparation
+
+To improve reporting accuracy and enable time-based analysis, several calculated tables and DAX measures were created.
+
+## 📅 Calendar Table
+
+A custom calendar table was generated dynamically based on the minimum and maximum order dates.
+
+```DAX
+Calendar =
 VAR MinDate = MIN('List of Orders'[Order Date])
 VAR MaxDate = MAX('List of Orders'[Order Date])
 RETURN
 ADDCOLUMNS (
-    CALENDAR(DATE(YEAR(MinDate), 1, 1), DATE(YEAR(MaxDate), 12, 31)),
+    CALENDAR(
+        DATE(YEAR(MinDate), 1, 1),
+        DATE(YEAR(MaxDate), 12, 31)
+    ),
     "Year", YEAR([Date]),
     "Month Name", FORMAT([Date], "MMMM"),
     "Month Number", MONTH([Date]),
     "Quarter", "Q" & FORMAT([Date], "Q"),
     "Year Month", FORMAT([Date], "YYYY-MM")
 )
+```
 
--- Financial KPIs & Achievement Measures
+The calendar table provides:
 
-1. Total Sales = SUM('Order Details'[Amount])
-2. Total Target = SUM('Sales_Target'[Target])
-3. Order Count = DISTINCTCOUNT('List of Orders'[Order ID])
-4. Average Profit in Delhi = 
+- Year
+- Month Name
+- Month Number
+- Quarter
+- Year-Month
+
+This enables efficient time intelligence and trend analysis.
+
+---
+
+# 📈 DAX Measures
+
+### Total Sales
+
+Calculates the total revenue generated.
+
+```DAX
+Total Sales =
+SUM('Order Details'[Amount])
+```
+
+---
+
+### Total Target
+
+Calculates the overall sales target.
+
+```DAX
+Total Target =
+SUM('Sales_Target'[Target])
+```
+
+---
+
+### Order Count
+
+Counts the total number of unique orders.
+
+```DAX
+Order Count =
+DISTINCTCOUNT('List of Orders'[Order ID])
+```
+
+---
+
+### Average Profit in Delhi
+
+Calculates the average profit for orders placed in Delhi.
+
+```DAX
+Average Profit in Delhi =
 CALCULATE(
     AVERAGE('Order Details'[Profit]),
     'List of Orders'[City] = "Delhi"
-) 
+)
+```
+
+---
 
 
 ## 📊 Dashboard Architecture & Charts
