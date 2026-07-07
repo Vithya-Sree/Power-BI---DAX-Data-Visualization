@@ -21,21 +21,21 @@ The reporting suite is divided into four dedicated dashboards:
 * **Horizontal Bar Chart:** Maximum Profit Margin by Sub-Category.
 
 ### 2. Sales Target Matrix
-![Uploading image.png…]()
+<img width="890" height="502" alt="image" src="https://github.com/user-attachments/assets/66ab9e3c-d593-44c4-85ca-5c9b3fa3a4eb" />
 
 * **Matrix View:** Monthly financial ledger cross-referencing sales vs. targets.
 * **Gauge Chart:** Total Target Progression vs. milestone boundary ($431.5K reached).
 * **Multi-Row Card:** Minimum operational baseline thresholds per segment.
 
 ### 3. Product Deep Dive
-![Uploading image.png…]()
+<img width="891" height="505" alt="image" src="https://github.com/user-attachments/assets/7cca0b8f-884e-47b0-bd3b-ff2a7e6b65ad" />
 
 * **Treemap:** Revenue market share distribution by sub-category.
 * **Scatter Chart:** Profit vs. Quantity matrix mapping high-volume financial drains.
 * **Donut Chart:** Peak profit margin efficiencies across product lines.
 
 ### 4. Logistics & Regional Hubs
-![Uploading image.png…]()
+<img width="891" height="499" alt="image" src="https://github.com/user-attachments/assets/afd52ced-06e9-4dbf-835d-6e0c6f54a11e" />
 
 * **Funnel Chart:** Transaction volume distribution ranked by State.
 * **Bubble Map:** Geolocation plot mapping Total Sales by City across India.
