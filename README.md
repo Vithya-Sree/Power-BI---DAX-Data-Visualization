@@ -9,6 +9,42 @@ It bridges the gap between raw backend metrics and executive decision-making.
 ## ⚠️ Business Problem
 The enterprise lacked visibility into monthly target fulfillment, suffered from hidden profit drains due to high-volume/negative-margin products, and lacked data-driven insights to optimize physical shipping and logistics routes.
 
+## Dataset Information
+The database architecture follows a robust star-schema relational model, optimizing processing efficiency and preventing metric distortion:
+•	List of Orders (Dimension Table): Captures geographic, logistical, and chronological identifiers (Order ID, Order Date, CustomerName, City, State).
+•	Order Details (Fact Table): Records transactional quantitative fields (Amount, Profit, Quantity) and houses engineered DAX components.
+•	Sales_Target (Dimension Table): Contains monthly target budgets broken down by organizational classifications (Category, Target).
+
+## Data Cleaning Process
+To secure exact data alignment, custom calculated dimensions and analytical metrics were developed using Data Analysis Expressions (DAX):
+
+-- Custom Calendar Table
+
+Calendar = 
+VAR MinDate = MIN('List of Orders'[Order Date])
+VAR MaxDate = MAX('List of Orders'[Order Date])
+RETURN
+ADDCOLUMNS (
+    CALENDAR(DATE(YEAR(MinDate), 1, 1), DATE(YEAR(MaxDate), 12, 31)),
+    "Year", YEAR([Date]),
+    "Month Name", FORMAT([Date], "MMMM"),
+    "Month Number", MONTH([Date]),
+    "Quarter", "Q" & FORMAT([Date], "Q"),
+    "Year Month", FORMAT([Date], "YYYY-MM")
+)
+
+-- Financial KPIs & Achievement Measures
+
+1. Total Sales = SUM('Order Details'[Amount])
+2. Total Target = SUM('Sales_Target'[Target])
+3. Order Count = DISTINCTCOUNT('List of Orders'[Order ID])
+4. Average Profit in Delhi = 
+CALCULATE(
+    AVERAGE('Order Details'[Profit]),
+    'List of Orders'[City] = "Delhi"
+) 
+
+
 ## 📊 Dashboard Architecture & Charts
 The reporting suite is divided into four dedicated dashboards:
 
